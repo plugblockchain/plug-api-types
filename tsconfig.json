@@ -1,0 +1,15 @@
+{
+  "compilerOptions": {
+    "allowJs": false,
+    "target": "esnext",
+    "moduleResolution": "node",
+    "module": "commonjs",
+    "allowSyntheticDefaultImports": true,
+    "outDir": "./dist",
+    "resolveJsonModule": true,
+    "declaration": true
+  },
+  "include": [
+    "./types/*"
+  ]
+}

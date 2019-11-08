@@ -1,0 +1,23 @@
+{
+  "name": "plug-sdk-types",
+  "version": "0.0.0",
+  "description": "SDK type definitions for the Plug runtime",
+  "main": "dist/index.js",
+  "typings": "dist/index.d.ts",
+  "devDependencies": {
+    "@polkadot/api": "^0.95.2"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/plugblockchain/plug-sdk-types.git"
+  },
+  "author": "support@plug.team",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/plugblockchain/plug-sdk-types/issues"
+  },
+  "homepage": "https://github.com/plugblockchain/plug-sdk-types#readme"
+}
