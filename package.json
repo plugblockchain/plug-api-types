@@ -1,6 +1,6 @@
 {
   "name": "plug-sdk-types",
-  "version": "0.0.0",
+  "version": "1.0.0-rc1",
   "description": "SDK type definitions for the Plug runtime",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
