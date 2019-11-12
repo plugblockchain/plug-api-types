@@ -1,4 +1,4 @@
-// Copyright 2017-2019 @polkadot/types authors & contributors & Plug New Zealand Ltd.
+// Copyright 2017-2019 @polkadot/types authors & contributors & 2019-2020 Plug New Zealand Ltd.
 // This software may be modified and distributed under the terms
 // of the Apache-2.0 license. See the LICENSE file for details.
 
@@ -16,9 +16,9 @@ import { ClassOf, createType } from '@polkadot/types/codec/create';
 import Struct from '@polkadot/types/codec/Struct';
 import PlugExtrinsicSignatureV1 from './ExtrinsicSignature';
 
-export const TRANSACTION_VERSION = 4;
+export const TRANSACTION_VERSION = 3;
 
-export interface ExtrinsicValueV4 {
+export interface ExtrinsicValueV3 {
   method?: Call;
   signature?: PlugExtrinsicSignatureV1;
 }

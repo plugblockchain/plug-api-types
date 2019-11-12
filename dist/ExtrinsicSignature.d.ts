@@ -1,4 +1,4 @@
-import { Address, Balance, Call, EcdsaSignature, Ed25519Signature, ExtrinsicEra, Index, MultiSignature, Sr25519Signature } from '@polkadot/types/interfaces/runtime';
+import { Address, Balance, Call, ExtrinsicEra, Index, Signature } from '@polkadot/types/interfaces/runtime';
 import { IExtrinsicSignature, IKeyringPair } from '@polkadot/types/types';
 import { ExtrinsicSignatureOptions } from '@polkadot/types/primitive/Extrinsic/types';
 import Compact from '@polkadot/types/codec/Compact';
@@ -47,11 +47,7 @@ export default class PlugExtrinsicSignatureV1 extends Struct implements IExtrins
     /**
      * @description The actual [[EcdsaSignature]], [[Ed25519Signature]] or [[Sr25519Signature]]
      */
-    readonly signature: EcdsaSignature | Ed25519Signature | Sr25519Signature;
-    /**
-     * @description The raw [[MultiSignature]]
-     */
-    readonly multiSignature: MultiSignature;
+    readonly signature: Signature;
     /**
      * @description The [[Address]] that signed
      */
@@ -60,7 +56,7 @@ export default class PlugExtrinsicSignatureV1 extends Struct implements IExtrins
      * @description The [[Balance]] tip
      */
     readonly tip: Compact<Balance>;
-    protected injectSignature(signer: Address, signature: MultiSignature, { doughnut, era, nonce, tip }: PlugExtrinsicPayloadV1): IExtrinsicSignature;
+    protected injectSignature(signer: Address, signature: Signature, { doughnut, era, nonce, tip }: PlugExtrinsicPayloadV1): IExtrinsicSignature;
     /**
      * @description Adds a raw signature
      */

@@ -16,7 +16,7 @@ class PlugExtrinsicSignatureV1 extends Struct_1.default {
     constructor(value, { isSigned } = {}) {
         super({
             signer: 'Address',
-            signature: 'MultiSignature',
+            signature: 'Signature',
             doughnut: 'Option<Doughnut>',
             era: 'ExtrinsicEra',
             nonce: 'Compact<Index>',
@@ -70,12 +70,6 @@ class PlugExtrinsicSignatureV1 extends Struct_1.default {
      * @description The actual [[EcdsaSignature]], [[Ed25519Signature]] or [[Sr25519Signature]]
      */
     get signature() {
-        return this.multiSignature.value;
-    }
-    /**
-     * @description The raw [[MultiSignature]]
-     */
-    get multiSignature() {
         return this.get('signature');
     }
     /**
@@ -103,13 +97,12 @@ class PlugExtrinsicSignatureV1 extends Struct_1.default {
      * @description Adds a raw signature
      */
     addSignature(signer, signature, payload) {
-        return this.injectSignature(create_1.createType('Address', signer), create_1.createType('MultiSignature', signature), new ExtrinsicPayload_1.default(payload));
+        return this.injectSignature(create_1.createType('Address', signer), create_1.createType('Signature', signature), new ExtrinsicPayload_1.default(payload));
     }
     /**
      * @description Generate a payload and applies the signature from a keypair
      */
     sign(method, account, { blockHash, doughnut, era, genesisHash, nonce, runtimeVersion: { specVersion }, tip }) {
-        console.log("V4 sign");
         const signer = create_1.createType('Address', account.publicKey);
         const payload = new ExtrinsicPayload_1.default({
             blockHash,
@@ -121,8 +114,7 @@ class PlugExtrinsicSignatureV1 extends Struct_1.default {
             specVersion,
             tip: tip || 0
         });
-        console.log("ExtrinsicSignature.sign, payload: {}", payload);
-        const signature = create_1.createType('MultiSignature', payload.sign(account));
+        const signature = create_1.createType('Signature', payload.sign(account));
         return this.injectSignature(signer, signature, payload);
     }
     /**

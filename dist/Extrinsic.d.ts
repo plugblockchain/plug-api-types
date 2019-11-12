@@ -7,8 +7,8 @@ import { ExtrinsicPayloadValue, IExtrinsicImpl, IKeyringPair, SignatureOptions }
 import { ExtrinsicOptions } from '@polkadot/types/primitive/Extrinsic/types';
 import Struct from '@polkadot/types/codec/Struct';
 import PlugExtrinsicSignatureV1 from './ExtrinsicSignature';
-export declare const TRANSACTION_VERSION = 4;
-export interface ExtrinsicValueV4 {
+export declare const TRANSACTION_VERSION = 3;
+export interface ExtrinsicValueV3 {
     method?: Call;
     signature?: PlugExtrinsicSignatureV1;
 }
@@ -19,8 +19,8 @@ export interface ExtrinsicValueV4 {
  * It is lightly modified [[ExtrinsicV4]] from `@polkadot/types`
  */
 export default class PlugExtrinsicV1 extends Struct implements IExtrinsicImpl {
-    constructor(value?: Uint8Array | ExtrinsicValueV4 | Call, { isSigned }?: Partial<ExtrinsicOptions>);
-    static decodeExtrinsic(value?: Call | Uint8Array | ExtrinsicValueV4, isSigned?: boolean): ExtrinsicValueV4;
+    constructor(value?: Uint8Array | ExtrinsicValueV3 | Call, { isSigned }?: Partial<ExtrinsicOptions>);
+    static decodeExtrinsic(value?: Call | Uint8Array | ExtrinsicValueV3, isSigned?: boolean): ExtrinsicValueV3;
     /**
      * @description The length of the value when encoded as a Uint8Array
      */

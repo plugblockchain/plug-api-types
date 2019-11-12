@@ -1,4 +1,4 @@
-// Copyright 2017-2019 @polkadot/types authors & contributors & Plug New Zealand Ltd.
+// Copyright 2017-2019 @polkadot/types authors & contributors & 2019-2020 Plug New Zealand Ltd.
 // This software may be modified and distributed under the terms
 // of the Apache-2.0 license. See the LICENSE file for details.
 
@@ -166,7 +166,7 @@ export default class PlugExtrinsicSignatureV1 extends Struct implements IExtrins
   ): IExtrinsicSignature {
     return this.injectSignature(
       createType('Address', signer),
-      createType('MultiSignature', signature),
+      createType('Signature', signature),
       new PlugExtrinsicPayloadV1(payload)
     );
   }
