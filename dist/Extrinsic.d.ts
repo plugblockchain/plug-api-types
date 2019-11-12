@@ -7,7 +7,7 @@ import { ExtrinsicPayloadValue, IExtrinsicImpl, IKeyringPair, SignatureOptions }
 import { ExtrinsicOptions } from '@polkadot/types/primitive/Extrinsic/types';
 import Struct from '@polkadot/types/codec/Struct';
 import PlugExtrinsicSignatureV1 from './ExtrinsicSignature';
-export declare const TRANSACTION_VERSION = 4;
+export declare const TRANSACTION_VERSION = 3;
 export interface ExtrinsicValueV4 {
     method?: Call;
     signature?: PlugExtrinsicSignatureV1;
