@@ -2,7 +2,7 @@
 // This software may be modified and distributed under the terms
 // of the Apache-2.0 license. See the LICENSE file for details.
 
-import { Address, Balance, Call, EcdsaSignature, Ed25519Signature, ExtrinsicEra, Index, MultiSignature, Sr25519Signature } from '@polkadot/types/interfaces/runtime';
+import { Address, Balance, Call, EcdsaSignature, Ed25519Signature, ExtrinsicEra, Index, Sr25519Signature, Signature } from '@polkadot/types/interfaces/runtime';
 import { IExtrinsicSignature, IKeyringPair } from '@polkadot/types/types';
 import { ExtrinsicSignatureOptions } from '@polkadot/types/primitive/Extrinsic/types';
 
@@ -36,7 +36,7 @@ export default class PlugExtrinsicSignatureV1 extends Struct implements IExtrins
   public constructor (value: PlugExtrinsicSignatureV1 | Uint8Array | undefined, { isSigned }: ExtrinsicSignatureOptions = {}) {
     super({
       signer: 'Address',
-      signature: 'MultiSignature',
+      signature: 'Signature',
       doughnut: 'Option<Doughnut>',
       era: 'ExtrinsicEra',
       nonce: 'Compact<Index>',
@@ -96,15 +96,8 @@ export default class PlugExtrinsicSignatureV1 extends Struct implements IExtrins
   /**
    * @description The actual [[EcdsaSignature]], [[Ed25519Signature]] or [[Sr25519Signature]]
    */
-  public get signature (): EcdsaSignature | Ed25519Signature | Sr25519Signature {
-    return this.multiSignature.value as Sr25519Signature;
-  }
-
-  /**
-   * @description The raw [[MultiSignature]]
-   */
-  public get multiSignature (): MultiSignature {
-    return this.get('signature') as MultiSignature;
+  public get signature (): Signature {
+    return this.get('signature') as Signature;
   }
 
   /**
@@ -121,7 +114,7 @@ export default class PlugExtrinsicSignatureV1 extends Struct implements IExtrins
     return this.get('tip') as Compact<Balance>;
   }
 
-  protected injectSignature (signer: Address, signature: MultiSignature, { doughnut, era, nonce, tip }: PlugExtrinsicPayloadV1): IExtrinsicSignature {
+  protected injectSignature (signer: Address, signature: Signature, { doughnut, era, nonce, tip }: PlugExtrinsicPayloadV1): IExtrinsicSignature {
     this.set('doughnut', doughnut);
     this.set('era', era);
     this.set('nonce', nonce);
@@ -138,7 +131,7 @@ export default class PlugExtrinsicSignatureV1 extends Struct implements IExtrins
   public addSignature (signer: Address | Uint8Array | string, signature: Uint8Array | string, payload: any | Uint8Array | string): IExtrinsicSignature {
     return this.injectSignature(
       createType('Address', signer),
-      createType('MultiSignature', signature),
+      createType('Signature', signature),
       new PlugExtrinsicPayloadV1(payload)
     );
   }
@@ -147,7 +140,6 @@ export default class PlugExtrinsicSignatureV1 extends Struct implements IExtrins
    * @description Generate a payload and applies the signature from a keypair
    */
   public sign (method: Call, account: IKeyringPair, { blockHash, doughnut, era, genesisHash, nonce, runtimeVersion: { specVersion }, tip }: SignatureOptions): IExtrinsicSignature {
-    console.log("V4 sign");
     const signer = createType('Address', account.publicKey);
     const payload = new PlugExtrinsicPayloadV1({
       blockHash,
@@ -159,8 +151,7 @@ export default class PlugExtrinsicSignatureV1 extends Struct implements IExtrins
       specVersion,
       tip: tip || 0
     });
-    console.log("ExtrinsicSignature.sign, payload: {}", payload);
-    const signature = createType('MultiSignature', payload.sign(account));
+    const signature = createType('Signature', payload.sign(account));
 
     return this.injectSignature(signer, signature, payload);
   }

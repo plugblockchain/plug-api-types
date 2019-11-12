@@ -5,7 +5,7 @@
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
   "devDependencies": {
-    "@polkadot/api": "^0.95.2"
+    "@polkadot/api": "0.95.2"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"

@@ -7,7 +7,7 @@ const util_1 = require("@polkadot/util");
 const create_1 = require("@polkadot/types/codec/create");
 const Struct_1 = require("@polkadot/types/codec/Struct");
 const ExtrinsicSignature_1 = require("./ExtrinsicSignature");
-exports.TRANSACTION_VERSION = 4;
+exports.TRANSACTION_VERSION = 3;
 /**
  * @name PlugExtrinsicV1
  * @description

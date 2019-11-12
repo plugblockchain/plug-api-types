@@ -16,9 +16,9 @@ import { createType, ClassOf } from '@polkadot/types/codec/create';
 import Struct from '@polkadot/types/codec/Struct';
 import PlugExtrinsicSignatureV1 from './ExtrinsicSignature';
 
-export const TRANSACTION_VERSION = 4;
+export const TRANSACTION_VERSION = 3;
 
-export interface ExtrinsicValueV4 {
+export interface ExtrinsicValueV3 {
   method?: Call;
   signature?: PlugExtrinsicSignatureV1;
 }
@@ -30,14 +30,14 @@ export interface ExtrinsicValueV4 {
  * It is lightly modified [[ExtrinsicV4]] from `@polkadot/types`
  */
 export default class PlugExtrinsicV1 extends Struct implements IExtrinsicImpl {
-  public constructor (value?: Uint8Array | ExtrinsicValueV4 | Call, { isSigned }: Partial<ExtrinsicOptions> = {}) {
+  public constructor (value?: Uint8Array | ExtrinsicValueV3 | Call, { isSigned }: Partial<ExtrinsicOptions> = {}) {
     super({
       signature: PlugExtrinsicSignatureV1,
       method: 'Call'
     }, PlugExtrinsicV1.decodeExtrinsic(value, isSigned));
   }
 
-  public static decodeExtrinsic (value?: Call | Uint8Array | ExtrinsicValueV4, isSigned = false): ExtrinsicValueV4 {
+  public static decodeExtrinsic (value?: Call | Uint8Array | ExtrinsicValueV3, isSigned = false): ExtrinsicValueV3 {
     if (!value) {
       return {};
     } else if (value instanceof PlugExtrinsicV1) {

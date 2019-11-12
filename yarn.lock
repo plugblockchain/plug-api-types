@@ -28,7 +28,7 @@
     "@polkadot/util" "^1.6.1"
     "@polkadot/util-crypto" "^1.6.1"
 
-"@polkadot/api@^0.95.2":
+"@polkadot/api@0.95.2", "@polkadot/api@^0.95.2":
   version "0.95.2"
   resolved "https://registry.yarnpkg.com/@polkadot/api/-/api-0.95.2.tgz#3350281066ba4c98b8ff4980b4abdfd119ab8fb1"
   integrity sha512-SrYiEE9T+AmCx18NyhEk5l/7yPvVqogiz7rmW8YGlOZ89OEPHe2dOTaD5tZJ5daKXEkXFsqPPtwemCv2OZ2F1g==

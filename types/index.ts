@@ -35,7 +35,7 @@ const PlugRuntimeTypes = {
   // The doughnut ceritificate type
   'Doughnut': Doughnut,
   // The Plug extrinsic type
-  'ExtrinsicV4': PlugExtrinsicV1,
+  'ExtrinsicV3': PlugExtrinsicV1,
   // The staking reward currency type
   'RewardBalance': 'Balance',
   // The patched [[Option]] type

@@ -101,7 +101,7 @@ class PlugExtrinsicPayloadV1 extends Struct_1.default {
         // NOTE The `toU8a(true)` argument is absolutely critical - we don't want the method (Bytes)
         // to have the length prefix included. This means that the data-as-signed is un-decodable,
         // but is also doesn't need the extra information, only the pure data (and is not decoded)
-        return util_1.sign(signerPair, this.toU8a(true), { withType: true });
+        return util_1.sign(signerPair, this.toU8a(true));
     }
 }
 exports.default = PlugExtrinsicPayloadV1;
