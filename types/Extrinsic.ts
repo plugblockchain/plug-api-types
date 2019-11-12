@@ -16,7 +16,7 @@ import { createType, ClassOf } from '@polkadot/types/codec/create';
 import Struct from '@polkadot/types/codec/Struct';
 import PlugExtrinsicSignatureV1 from './ExtrinsicSignature';
 
-export const TRANSACTION_VERSION = 4;
+export const TRANSACTION_VERSION = 3;
 
 export interface ExtrinsicValueV4 {
   method?: Call;
