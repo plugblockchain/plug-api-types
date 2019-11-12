@@ -14,6 +14,7 @@ Add as dependency
 ```
 
 ```ts
+import {ApiPromise, WsProvider} from '@polkadot/api';
 import PlugRuntimeTypes from '@plugnet/plug-sdk-types';
 
 async function main() {
