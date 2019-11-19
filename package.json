@@ -32,6 +32,7 @@
   "bugs": {
     "url": "https://github.com/plugblockchain/plug-api-types/issues"
   },
+<<<<<<< HEAD
   "homepage": "https://github.com/plugblockchain/plug-api-types#readme",
   "husky": {
     "hooks": {
@@ -44,4 +45,7 @@
       "git add"
     ]
   }
+=======
+  "homepage": "https://github.com/plugblockchain/plug-api-types#readme"
+>>>>>>> Rename plug-sdk-types -> plug-api-types
 }

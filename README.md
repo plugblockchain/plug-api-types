@@ -20,7 +20,7 @@ import {ApiPromise, WsProvider} from '@polkadot/api';
 import PlugRuntimeTypes from '@plugnet/plug-api-types';
 
 async function main() {
-  const provider = new WsProvider('ws//example.com:9944');
+  const provider = new WsProvider('ws://example.com:9944');
   const api = await ApiPromise.create({ 
     provider,
     types: PlugRuntimeTypes,
