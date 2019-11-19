@@ -1,5 +1,5 @@
 {
-  "name": "plug-sdk-types",
+  "name": "plug-api-types",
   "version": "1.0.0-rc1",
   "description": "SDK type definitions for the Plug runtime",
   "main": "dist/index.js",
@@ -12,12 +12,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/plugblockchain/plug-sdk-types.git"
+    "url": "git+https://github.com/plugblockchain/plug-api-types.git"
   },
   "author": "support@plug.team",
   "license": "Apache-2.0",
   "bugs": {
-    "url": "https://github.com/plugblockchain/plug-sdk-types/issues"
+    "url": "https://github.com/plugblockchain/plug-api-types/issues"
   },
-  "homepage": "https://github.com/plugblockchain/plug-sdk-types#readme"
+  "homepage": "https://github.com/plugblockchain/plug-api-types#readme"
 }
