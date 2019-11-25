@@ -12,16 +12,16 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import {AnyU8a, Codec} from '@polkadot/types/types';
-import Bytes from '@polkadot/types/primitive/Bytes';
 import Compact from '@polkadot/types/codec/Compact';
 import U8a from '@polkadot/types/codec/U8a';
+import Bytes from '@polkadot/types/primitive/Bytes';
+import { AnyU8a, Codec } from '@polkadot/types/types';
 
 /**
  * An encoded, signed v0 Doughnut certificate
  **/
 export default class Doughnut extends U8a implements Codec {
-    public get encodedLength (): number {
+    get encodedLength(): number {
         return this.toU8a().length;
     }
 
