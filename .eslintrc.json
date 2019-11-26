@@ -4,55 +4,58 @@
     "node": true,
     "jest": true
   },
-  "extends": ["airbnb", "prettier"],
-  "parser": "babel-eslint",
+  "extends": [ "prettier",
+              "prettier/@typescript-eslint", // Uses eslint-config-prettier to disable ESLint rules from @typescript-eslint/eslint-plugin that would conflict with prettier
+               "plugin:prettier/recommended"  // Enables eslint-plugin-prettier and displays prettier errors as ESLint errors. Make sure this is always the last configuration in the extends array.
+  ],
+  "parser": "@typescript-eslint/parser",
   "parserOptions": {
+    "sourceType": "module",
     "ecmaVersion": 10,
-    "ecmaFeatures": {
-      "jsx": true,
-      "experimentalObjectRestSpread": true
-    }
+    "project": "tsconfig.json"
   },
   "settings": {
     "import/resolver": {
       "babel-module": {}
     }
   },
-  "plugins": ["prettier", "import"],
+  "plugins": ["@typescript-eslint"],
   "globals": {
     "shallow": true,
     "var2": false
   },
   "rules": {
-    "no-nested-ternary": 0,
-    "no-unused-vars": 0,
-    "react/prop-types": 0,
-    "func-names": 0,
-    "arrow-body-style": 0,
-    "arrow-parens": 0,
-    "consistent-return": 0,
-    "import/no-extraneous-dependencies": 0,
-    "import/no-cycle": 1,
-    "import/prefer-default-export": 0,
-    "linebreak-style": 0,
-    "max-len": 0,
-    "no-confusing-arrow": 0,
-    "no-console": [
+    "@typescript-eslint/await-thenable": "error",
+    "@typescript-eslint/class-name-casing": "error",
+    "@typescript-eslint/explicit-member-accessibility": [
       "error",
       {
-        "allow": ["warn", "error"]
+        "accessibility": "explicit"
       }
     ],
-    "no-underscore-dangle": 0,
-    "prefer-promise-reject-errors": 0,
-    "no-plusplus": 0,
-    "prefer-template": 0,
-    "prefer-destructuring": 1,
-    "no-return-await": 0,
-    "lines-between-class-members": 0,
-    "no-unused-expressions": 0,
-    "no-return-assign": 0,
-    "no-restricted-syntax": 0,
-    "no-script-url": 0
+//    "@typescript-eslint/no-param-reassign": "error",
+    "@typescript-eslint/promise-function-async": "error",
+    "arrow-body-style": "error",
+    "complexity": "error",
+    "curly": [
+      "error",
+      "multi-line"
+    ],
+    "default-case": "error",
+    "dot-notation": "error",
+    "eqeqeq": [
+      "error",
+      "always"
+    ],
+    "import/no-extraneous-dependencies": "off",
+//    "import/order": "error",
+    "no-console": "error",
+    "no-duplicate-imports": "error",
+//    "no-magic-numbers": "error",
+    "no-return-await": "error",
+    "no-undef-init": "error",
+    "prefer-const": "error",
+    "prefer-template": "error",
+    "use-isnan": "error"
   }
 }
