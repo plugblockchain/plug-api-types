@@ -37,9 +37,6 @@
       "pre-commit": "lint-staged -r 'types/*'"
     }
   },
-  "dependencies": {
-    "typescript": "^3.7.2"
-  },
   "lint-staged": {
     "*.ts": [
       "eslint --fix",
