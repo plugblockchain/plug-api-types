@@ -10,5 +10,5 @@ jobs:
           command: npm install --only=dev
       - run:
           name: lint
-          command: eslint --fix-dry-run
+          command: npx eslint --fix-dry-run
       # TODO: Add integration tests
