@@ -1,4 +1,4 @@
-// Copyright 2019 Plug New Zealand Limited
+// Copyright 2019-2020 Plug New Zealand Ltd.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -12,31 +12,31 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import Compact from '@polkadot/types/codec/Compact';
-import U8a from '@polkadot/types/codec/U8a';
+import {AnyU8a, Codec, Registry} from '@polkadot/types/types';
 import Bytes from '@polkadot/types/primitive/Bytes';
-import { AnyU8a, Codec } from '@polkadot/types/types';
+import Compact from '@polkadot/types/codec/Compact';
+import Raw from '@polkadot/types/codec/Raw';
 
 /**
  * An encoded, signed v0 Doughnut certificate
  **/
-export default class Doughnut extends U8a implements Codec {
-  public get encodedLength(): number {
-    return this.toU8a().length;
-  }
-
-  constructor(value?: AnyU8a) {
-    // This function is used as both a constructor and a decoder
-    // Doughnut has its own codec but it must be length prefixed to support the SCALE codec used by the extrinsic
-
-    // Failure to decode indicates a call as a constructor
-    const decoded = new Bytes(value);
-    if (decoded.length > 0) {
-      super(decoded);
-    } else {
-      super(value);
+export default class Doughnut extends Raw implements Codec {
+    public get encodedLength (): number {
+        return this.toU8a().length;
     }
-  }
+
+    constructor(registry: Registry, value?: AnyU8a) {
+        // This function is used as both a constructor and a decoder
+        // Doughnut has its own codec but it must be length prefixed to support the SCALE codec used by the extrinsic
+
+        // Failure to decode indicates a call as a constructor
+        const decoded = new Bytes(registry, value);
+        if (decoded.length > 0) {
+            super(registry, decoded);
+        } else {
+            super(registry, value);
+        }
+    }
 
   toU8a(isBare?: boolean): Uint8Array {
     // Encode the doughnut with length prefix to support SCALE codec

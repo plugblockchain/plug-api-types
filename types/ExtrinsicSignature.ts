@@ -26,11 +26,13 @@ import {
   IExtrinsicEra,
   IExtrinsicSignature,
   IKeyringPair,
+  Registry,
   RuntimeVersionInterface,
 } from '@polkadot/types/types';
 
 import Doughnut from './Doughnut';
-import PlugExtrinsicPayloadV1 from './ExtrinsicPayload';
+import PlugExtrinsicPayloadV1, {PlugExtrinsicPayloadValue} from './ExtrinsicPayload';
+import { u8aConcat } from '@polkadot/util';
 
 export interface SignatureOptions {
   blockHash: AnyU8a;
@@ -48,27 +50,18 @@ export interface SignatureOptions {
  * A container for the [[Signature]] associated with a specific [[Extrinsic]]
  */
 export default class PlugExtrinsicSignatureV1 extends Struct implements IExtrinsicSignature {
-  public constructor(
-    value: PlugExtrinsicSignatureV1 | Uint8Array | undefined,
-    { isSigned }: ExtrinsicSignatureOptions = {}
-  ) {
-    super(
-      {
-        signer: 'Address',
-        signature: 'MultiSignature',
-        doughnut: 'Option<Doughnut>',
-        era: 'ExtrinsicEra',
-        nonce: 'Compact<Index>',
-        tip: 'Compact<Balance>',
-      },
-      PlugExtrinsicSignatureV1.decodeExtrinsicSignature(value, isSigned)
-    );
+  constructor (registry: Registry, value: PlugExtrinsicSignatureV1 | Uint8Array | undefined, { isSigned }: ExtrinsicSignatureOptions = {}) {
+    super(registry, {
+      signer: 'Address',
+      signature: 'MultiSignature',
+      doughnut: 'Option<Doughnut>',
+      era: 'ExtrinsicEra',
+      nonce: 'Compact<Index>',
+      tip: 'Compact<Balance>'
+    }, PlugExtrinsicSignatureV1.decodeExtrinsicSignature(value, isSigned));
   }
 
-  public static decodeExtrinsicSignature(
-    value: PlugExtrinsicSignatureV1 | Uint8Array | undefined,
-    isSigned = false
-  ): PlugExtrinsicSignatureV1 | Uint8Array {
+  public static decodeExtrinsicSignature (value: PlugExtrinsicSignatureV1 | Uint8Array | undefined, isSigned = false): PlugExtrinsicSignatureV1 | Uint8Array {
     if (!value) {
       return EMPTY_U8A;
     } else if (value instanceof PlugExtrinsicSignatureV1) {
@@ -107,23 +100,16 @@ export default class PlugExtrinsicSignatureV1 extends Struct implements IExtrins
   }
 
   /**
-   * @description The [[Doughnut]]
-   */
-  public get doughnut(): Option<Doughnut> {
-    return this.get('doughnut') as Option<Doughnut>;
-  }
-
-  /**
    * @description The actual [[EcdsaSignature]], [[Ed25519Signature]] or [[Sr25519Signature]]
    */
-  public get signature(): EcdsaSignature | Ed25519Signature | Sr25519Signature {
+  public get signature (): EcdsaSignature | Ed25519Signature | Sr25519Signature {
     return this.multiSignature.value as Sr25519Signature;
   }
 
   /**
    * @description The raw [[MultiSignature]]
    */
-  public get multiSignature(): MultiSignature {
+  public get multiSignature (): MultiSignature {
     return this.get('signature') as MultiSignature;
   }
 
@@ -135,19 +121,22 @@ export default class PlugExtrinsicSignatureV1 extends Struct implements IExtrins
   }
 
   /**
+   * @description The [[Doughnut]]
+   */
+  public get doughnut (): Option<Doughnut> {
+    return this.get('doughnut') as Option<Doughnut>;
+  }
+
+  /**
    * @description The [[Balance]] tip
    */
   public get tip(): Compact<Balance> {
     return this.get('tip') as Compact<Balance>;
   }
 
-  protected injectSignature(
-    signer: Address,
-    signature: MultiSignature,
-    { doughnut, era, nonce, tip }: PlugExtrinsicPayloadV1
-  ): IExtrinsicSignature {
-    this.set('doughnut', doughnut);
+  protected injectSignature (signer: Address, signature: MultiSignature, { era, doughnut, nonce, tip }: PlugExtrinsicPayloadV1): IExtrinsicSignature {
     this.set('era', era);
+    this.set('doughnut', doughnut);
     this.set('nonce', nonce);
     this.set('signer', signer);
     this.set('signature', signature);
@@ -159,31 +148,21 @@ export default class PlugExtrinsicSignatureV1 extends Struct implements IExtrins
   /**
    * @description Adds a raw signature
    */
-  public addSignature(
-    signer: Address | Uint8Array | string,
-    signature: Uint8Array | string,
-    payload: any | Uint8Array | string
-  ): IExtrinsicSignature {
+  public addSignature (signer: Address | Uint8Array | string, signature: Uint8Array | string, payload: PlugExtrinsicPayloadValue | Uint8Array | string): IExtrinsicSignature {
     return this.injectSignature(
-      createType('Address', signer),
-      createType('Signature', signature),
-      new PlugExtrinsicPayloadV1(payload)
+      createType(this.registry, 'Address', signer),
+      createType(this.registry, 'MultiSignature', signature),
+      new PlugExtrinsicPayloadV1(this.registry, payload)
     );
   }
 
   /**
-   * @description Generate a payload and applies the signature from a keypair
+   * @description Creates a payload from the supplied options
    */
-  public sign(
-    method: Call,
-    account: IKeyringPair,
-    { blockHash, doughnut, era, genesisHash, nonce, runtimeVersion: { specVersion }, tip }: SignatureOptions
-  ): IExtrinsicSignature {
-    // console.log("V4 sign");
-    const signer = createType('Address', account.publicKey);
-    const payload = new PlugExtrinsicPayloadV1({
+  public createPayload (method: Call, { blockHash, doughnut, era, genesisHash, nonce, runtimeVersion: { specVersion }, tip }: SignatureOptions): PlugExtrinsicPayloadV1 {
+    return new PlugExtrinsicPayloadV1(this.registry, {
       blockHash,
-      doughnut: doughnut || createType('Option<Doughnut>'),
+      doughnut: doughnut || createType(this.registry, 'Option<Doughnut>'),
       era: era || IMMORTAL_ERA,
       genesisHash,
       method: method.toHex(),
@@ -191,8 +170,26 @@ export default class PlugExtrinsicSignatureV1 extends Struct implements IExtrins
       specVersion,
       tip: tip || 0,
     });
-    // console.log("ExtrinsicSignature.sign, payload: {}", payload);
-    const signature = createType('MultiSignature', payload.sign(account));
+  }
+
+  /**
+   * @description Generate a payload and applies the signature from a keypair
+   */
+  public sign (method: Call, account: IKeyringPair, options: SignatureOptions): IExtrinsicSignature {
+    const signer = createType(this.registry, 'Address', account.publicKey);
+    const payload = this.createPayload(method, options);
+    const signature = createType(this.registry, 'MultiSignature', payload.sign(account));
+
+    return this.injectSignature(signer, signature, payload);
+  }
+
+  /**
+   * @description Generate a payload and applies a fake signature
+   */
+  public signFake (method: Call, address: Address | Uint8Array | string, options: SignatureOptions): IExtrinsicSignature {
+    const signer = createType(this.registry, 'Address', address);
+    const payload = this.createPayload(method, options);
+    const signature = createType(this.registry, 'MultiSignature', u8aConcat(new Uint8Array([1]), new Uint8Array(64).fill(0x42)));
 
     return this.injectSignature(signer, signature, payload);
   }

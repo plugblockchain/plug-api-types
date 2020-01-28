@@ -1,10 +1,8 @@
-import PlugExtrinsicV1 from './Extrinsic';
 import Doughnut from './Doughnut';
-import Option from '@polkadot/types/codec/Option';
+import PlugExtrinsicV1 from './Extrinsic';
 declare const PlugRuntimeTypes: {
-    'Doughnut': typeof Doughnut;
-    'ExtrinsicV3': typeof PlugExtrinsicV1;
-    'RewardBalance': string;
-    'Option': typeof Option;
+    Doughnut: typeof Doughnut;
+    ExtrinsicV4: typeof PlugExtrinsicV1;
+    RewardBalance: string;
 };
 export default PlugRuntimeTypes;

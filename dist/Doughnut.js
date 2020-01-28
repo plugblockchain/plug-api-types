@@ -1,5 +1,5 @@
 "use strict";
-// Copyright 2019 Plug New Zealand Limited
+// Copyright 2019-2020 Plug New Zealand Ltd.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -15,24 +15,24 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const Bytes_1 = require("@polkadot/types/primitive/Bytes");
 const Compact_1 = require("@polkadot/types/codec/Compact");
-const U8a_1 = require("@polkadot/types/codec/U8a");
+const Raw_1 = require("@polkadot/types/codec/Raw");
 /**
  * An encoded, signed v0 Doughnut certificate
  **/
-class Doughnut extends U8a_1.default {
+class Doughnut extends Raw_1.default {
     get encodedLength() {
         return this.toU8a().length;
     }
-    constructor(value) {
+    constructor(registry, value) {
         // This function is used as both a constructor and a decoder
         // Doughnut has its own codec but it must be length prefixed to support the SCALE codec used by the extrinsic
         // Failure to decode indicates a call as a constructor
-        const decoded = new Bytes_1.default(value);
+        const decoded = new Bytes_1.default(registry, value);
         if (decoded.length > 0) {
-            super(decoded);
+            super(registry, decoded);
         }
         else {
-            super(value);
+            super(registry, value);
         }
     }
     toU8a(isBare) {

@@ -5,10 +5,10 @@
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
   "devDependencies": {
-    "@polkadot/api": "^0.95.2",
+    "@polkadot/api": "^0.99.1",
     "@typescript-eslint/eslint-plugin": "^2.9.0",
     "@typescript-eslint/parser": "^2.9.0",
-    "eslint": "^6.7.1",
+    "eslint": "^5.14",
     "eslint-config-airbnb": "^18.0.1",
     "eslint-config-prettier": "^6.7.0",
     "eslint-plugin-import": "^2.18.2",
@@ -32,7 +32,6 @@
   "bugs": {
     "url": "https://github.com/plugblockchain/plug-api-types/issues"
   },
-<<<<<<< HEAD
   "homepage": "https://github.com/plugblockchain/plug-api-types#readme",
   "husky": {
     "hooks": {
@@ -45,7 +44,4 @@
       "git add"
     ]
   }
-=======
-  "homepage": "https://github.com/plugblockchain/plug-api-types#readme"
->>>>>>> Rename plug-sdk-types -> plug-api-types
 }

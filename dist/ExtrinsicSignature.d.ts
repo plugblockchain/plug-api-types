@@ -1,12 +1,11 @@
-import { Address, Balance, Call, ExtrinsicEra, Index, Signature } from '@polkadot/types/interfaces/runtime';
-import { IExtrinsicSignature, IKeyringPair } from '@polkadot/types/types';
-import { ExtrinsicSignatureOptions } from '@polkadot/types/primitive/Extrinsic/types';
 import Compact from '@polkadot/types/codec/Compact';
 import Option from '@polkadot/types/codec/Option';
 import Struct from '@polkadot/types/codec/Struct';
-import { AnyU8a, AnyNumber, IExtrinsicEra, RuntimeVersionInterface } from '@polkadot/types/types';
+import { Address, Balance, Call, EcdsaSignature, Ed25519Signature, ExtrinsicEra, Index, MultiSignature, Sr25519Signature } from '@polkadot/types/interfaces/runtime';
+import { ExtrinsicSignatureOptions } from '@polkadot/types/primitive/Extrinsic/types';
+import { AnyNumber, AnyU8a, IExtrinsicEra, IExtrinsicSignature, IKeyringPair, Registry, RuntimeVersionInterface } from '@polkadot/types/types';
 import Doughnut from './Doughnut';
-import PlugExtrinsicPayloadV1 from './ExtrinsicPayload';
+import PlugExtrinsicPayloadV1, { PlugExtrinsicPayloadValue } from './ExtrinsicPayload';
 export interface SignatureOptions {
     blockHash: AnyU8a;
     era?: IExtrinsicEra;
@@ -22,49 +21,61 @@ export interface SignatureOptions {
  * A container for the [[Signature]] associated with a specific [[Extrinsic]]
  */
 export default class PlugExtrinsicSignatureV1 extends Struct implements IExtrinsicSignature {
-    constructor(value: PlugExtrinsicSignatureV1 | Uint8Array | undefined, { isSigned }?: ExtrinsicSignatureOptions);
+    constructor(registry: Registry, value: PlugExtrinsicSignatureV1 | Uint8Array | undefined, { isSigned }?: ExtrinsicSignatureOptions);
     static decodeExtrinsicSignature(value: PlugExtrinsicSignatureV1 | Uint8Array | undefined, isSigned?: boolean): PlugExtrinsicSignatureV1 | Uint8Array;
     /**
      * @description The length of the value when encoded as a Uint8Array
      */
-    readonly encodedLength: number;
+    get encodedLength(): number;
     /**
      * @description `true` if the signature is valid
      */
-    readonly isSigned: boolean;
+    get isSigned(): boolean;
     /**
      * @description The [[ExtrinsicEra]] (mortal or immortal) this signature applies to
      */
-    readonly era: ExtrinsicEra;
+    get era(): ExtrinsicEra;
     /**
      * @description The [[Index]] for the signature
      */
-    readonly nonce: Compact<Index>;
-    /**
-     * @description The [[Doughnut]]
-     */
-    readonly doughnut: Option<Doughnut>;
+    get nonce(): Compact<Index>;
     /**
      * @description The actual [[EcdsaSignature]], [[Ed25519Signature]] or [[Sr25519Signature]]
      */
-    readonly signature: Signature;
+    get signature(): EcdsaSignature | Ed25519Signature | Sr25519Signature;
+    /**
+     * @description The raw [[MultiSignature]]
+     */
+    get multiSignature(): MultiSignature;
     /**
      * @description The [[Address]] that signed
      */
-    readonly signer: Address;
+    get signer(): Address;
+    /**
+     * @description The [[Doughnut]]
+     */
+    get doughnut(): Option<Doughnut>;
     /**
      * @description The [[Balance]] tip
      */
-    readonly tip: Compact<Balance>;
-    protected injectSignature(signer: Address, signature: Signature, { doughnut, era, nonce, tip }: PlugExtrinsicPayloadV1): IExtrinsicSignature;
+    get tip(): Compact<Balance>;
+    protected injectSignature(signer: Address, signature: MultiSignature, { era, doughnut, nonce, tip }: PlugExtrinsicPayloadV1): IExtrinsicSignature;
     /**
      * @description Adds a raw signature
      */
-    addSignature(signer: Address | Uint8Array | string, signature: Uint8Array | string, payload: any | Uint8Array | string): IExtrinsicSignature;
+    addSignature(signer: Address | Uint8Array | string, signature: Uint8Array | string, payload: PlugExtrinsicPayloadValue | Uint8Array | string): IExtrinsicSignature;
+    /**
+     * @description Creates a payload from the supplied options
+     */
+    createPayload(method: Call, { blockHash, doughnut, era, genesisHash, nonce, runtimeVersion: { specVersion }, tip }: SignatureOptions): PlugExtrinsicPayloadV1;
     /**
      * @description Generate a payload and applies the signature from a keypair
      */
-    sign(method: Call, account: IKeyringPair, { blockHash, doughnut, era, genesisHash, nonce, runtimeVersion: { specVersion }, tip }: SignatureOptions): IExtrinsicSignature;
+    sign(method: Call, account: IKeyringPair, options: SignatureOptions): IExtrinsicSignature;
+    /**
+     * @description Generate a payload and applies a fake signature
+     */
+    signFake(method: Call, address: Address | Uint8Array | string, options: SignatureOptions): IExtrinsicSignature;
     /**
      * @description Encodes the value as a Uint8Array as per the SCALE specifications
      * @param isBare true when the value has none of the type-specific prefixes (internal)
