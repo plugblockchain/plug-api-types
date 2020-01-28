@@ -1,4 +1,6 @@
 # plug-api-types
+[![CircleCI](https://circleci.com/gh/plugblockchain/plug-api-types.svg?style=svg)](https://circleci.com/gh/plugblockchain/plug-api-types)
+
 Type definitions for the Plug blockchain runtime.  
 These should be injected into an API session from `@polkadot/api` in order to connect and transact with
 a Plug chain.
