@@ -1,4 +1,4 @@
-// Copyright 2017-2019 @polkadot/types authors & contributors & Plug New Zealand Ltd.
+// Copyright 2017-2019 @polkadot/types authors & contributors & 2019-2020 Plug New Zealand Ltd.
 // This software may be modified and distributed under the terms
 // of the Apache-2.0 license. See the LICENSE file for details.
 
@@ -7,8 +7,8 @@ This file is a copy of `@polkadot/types/primitive/Extrinsic/v4/Extrinsic`
 It has had its payload and signature type changed to use Plug versions.
 **/
 import { Address, Call } from '@polkadot/types/interfaces/runtime';
+import { ExtrinsicPayloadValue, IExtrinsicImpl, IKeyringPair, Registry, SignatureOptions } from '@polkadot/types/types';
 import { ExtrinsicOptions } from '@polkadot/types/primitive/Extrinsic/types';
-import { ExtrinsicPayloadValue, IExtrinsicImpl, IKeyringPair, SignatureOptions } from '@polkadot/types/types';
 
 import { isU8a } from '@polkadot/util';
 
@@ -26,31 +26,27 @@ export interface ExtrinsicValueV4 {
 /**
  * @name PlugExtrinsicV1
  * @description
- * The first generation of Plug extrinsic.
- * It is lightly modified [[ExtrinsicV4]] from `@polkadot/types`
+ * The first generation of Plug extrinsics (based on the fourth generation of compact extrinsics)
  */
 export default class PlugExtrinsicV1 extends Struct implements IExtrinsicImpl {
-  public constructor(value?: Uint8Array | ExtrinsicValueV4 | Call, { isSigned }: Partial<ExtrinsicOptions> = {}) {
-    super(
-      {
-        signature: PlugExtrinsicSignatureV1,
-        method: 'Call',
-      },
-      PlugExtrinsicV1.decodeExtrinsic(value, isSigned)
-    );
+  constructor (registry: Registry, value?: Uint8Array | ExtrinsicValueV4 | Call, { isSigned }: Partial<ExtrinsicOptions> = {}) {
+    super(registry, {
+      signature: PlugExtrinsicSignatureV1,
+      method: 'Call'
+    }, PlugExtrinsicV1.decodeExtrinsic(registry, value, isSigned));
   }
 
-  public static decodeExtrinsic(value?: Call | Uint8Array | ExtrinsicValueV4, isSigned = false): ExtrinsicValueV4 {
+  public static decodeExtrinsic (registry: Registry, value?: Call | Uint8Array | ExtrinsicValueV4, isSigned = false): ExtrinsicValueV4 {
     if (!value) {
       return {};
     } else if (value instanceof PlugExtrinsicV1) {
       return value;
-    } else if (value instanceof ClassOf('Call')) {
+    } else if (value instanceof ClassOf(registry, 'Call')) {
       return { method: value };
     } else if (isU8a(value)) {
       // here we decode manually since we need to pull through the version information
-      const signature = new PlugExtrinsicSignatureV1(value, { isSigned });
-      const method = createType('Call', value.subarray(signature.encodedLength));
+      const signature = new PlugExtrinsicSignatureV1(registry, value, { isSigned });
+      const method = createType(registry, 'Call', value.subarray(signature.encodedLength));
 
       return {
         method,
@@ -92,11 +88,7 @@ export default class PlugExtrinsicV1 extends Struct implements IExtrinsicImpl {
   /**
    * @description Add an [[PlugExtrinsicSignatureV1]] to the extrinsic (already generated)
    */
-  public addSignature(
-    signer: Address | Uint8Array | string,
-    signature: Uint8Array | string,
-    payload: ExtrinsicPayloadValue | Uint8Array | string
-  ): PlugExtrinsicV1 {
+  public addSignature (signer: Address | Uint8Array | string, signature: Uint8Array | string, payload: ExtrinsicPayloadValue | Uint8Array | string): PlugExtrinsicV1 {
     this.signature.addSignature(signer, signature, payload);
 
     return this;
@@ -105,8 +97,17 @@ export default class PlugExtrinsicV1 extends Struct implements IExtrinsicImpl {
   /**
    * @description Sign the extrinsic with a specific keypair
    */
-  public sign(account: IKeyringPair, options: SignatureOptions): PlugExtrinsicV1 {
+  public sign (account: IKeyringPair, options: SignatureOptions): PlugExtrinsicV1 {
     this.signature.sign(this.method, account, options);
+
+    return this;
+  }
+
+  /**
+   * @describe Adds a fake signature to the extrinsic
+   */
+  public signFake (signer: Address | Uint8Array | string, options: SignatureOptions): PlugExtrinsicV1 {
+    this.signature.signFake(this.method, signer, options);
 
     return this;
   }
