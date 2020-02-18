@@ -54,7 +54,10 @@ export default class PlugExtrinsicSignatureV1 extends Struct implements IExtrins
     super(registry, {
       signer: 'Address',
       signature: 'MultiSignature',
-      ...registry.getSignedExtensionTypes()
+      doughnut: 'Option<Doughnut>',
+      era: 'ExtrinsicEra',
+      nonce: 'Compact<Index>',
+      tip: 'Compact<Balance>'
     }, PlugExtrinsicSignatureV1.decodeExtrinsicSignature(value, isSigned));
   }
 
