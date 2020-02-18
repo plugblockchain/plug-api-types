@@ -11,4 +11,6 @@ jobs:
       - run:
           name: lint
           command: npx eslint --fix-dry-run 'types/*'
-      # TODO: Add integration tests
+      - run:
+          name: integration test
+          command: npm run test
