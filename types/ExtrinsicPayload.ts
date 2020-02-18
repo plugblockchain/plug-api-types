@@ -5,7 +5,7 @@
 import Compact from '@polkadot/types/codec/Compact';
 import Option from '@polkadot/types/codec/Option';
 import Struct from '@polkadot/types/codec/Struct';
-import { Balance, ExtrinsicEra, Hash, Index } from '@polkadot/types/interfaces/runtime';
+import { Balance, ExtrinsicEra, Hash, Index } from '@polkadot/types/interfaces';
 import Bytes from '@polkadot/types/primitive/Bytes';
 import { sign } from '@polkadot/types/primitive/Extrinsic/util';
 import u32 from '@polkadot/types/primitive/U32';
@@ -99,7 +99,7 @@ export default class PlugExtrinsicPayloadV1 extends Struct {
   }
 
   /**
-   * @description The [[Index]]
+   * @description The nonce
    */
   public get nonce(): Compact<Index> {
     return this.get('nonce') as Compact<Index>;

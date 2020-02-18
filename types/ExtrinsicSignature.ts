@@ -16,7 +16,7 @@ import {
   Index,
   MultiSignature,
   Sr25519Signature,
-} from '@polkadot/types/interfaces/runtime';
+} from '@polkadot/types/interfaces';
 import { EMPTY_U8A, IMMORTAL_ERA } from '@polkadot/types/primitive/Extrinsic/constants';
 import { ExtrinsicSignatureOptions } from '@polkadot/types/primitive/Extrinsic/types';
 
