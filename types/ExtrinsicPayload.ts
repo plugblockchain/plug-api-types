@@ -25,40 +25,6 @@ export interface PlugExtrinsicPayloadValue {
     tip?: AnyNumber;
 }
 
-// The base fields in a Plug V1 extrinsic payload
-export const BasePayloadV1: Record<string, PlugInterfaceTypes> = {
-  method: 'Bytes',
-  doughnut: 'Option<Doughnut>',
-  era: 'ExtrinsicEra',
-  nonce: 'Compact<Index>',
-  tip: 'Compact<Balance>',
-};
-
-// These fields are signed here as part of the extrinsic signature but are NOT encoded in
-// the final extrinsic payload itself.
-// The Plug node will populate these fields from on-chain data and check the signature compares
-// hence they are implicit
-export const SignedExtraV1: Record<string, PlugInterfaceTypes> = {
-  // prml_doughnut::Option<PlugDoughnut<Doughnut, Runtime>>
-  // system::CheckVersion<Runtime>
-  specVersion: 'u32',
-  // system::CheckGenesis<Runtime>
-  genesisHash: 'Hash',
-  // system::CheckEra<Runtime>
-  blockHash: 'Hash',
-  // system::CheckNonce<Runtime>
-  // system::CheckWeight<Runtime>
-  // transaction_payment::ChargeTransactionPayment<Runtime>,
-  // contracts::CheckBlockGasLimit<Runtime>,
-};
-
-// The full definition for the extrinsic payload.
-// It will be encoded (+ hashed if len > 256) and then signed to make the extrinsic signature
-export const PayloadV1: Record<string, PlugInterfaceTypes> = {
-  ...BasePayloadV1,
-  ...SignedExtraV1
-};
-
 /**
  * @name PlugExtrinsicPayloadV1
  * @description
@@ -67,7 +33,11 @@ export const PayloadV1: Record<string, PlugInterfaceTypes> = {
  */
 export default class PlugExtrinsicPayloadV1 extends Struct {
   public constructor (registry: Registry, value?: PlugExtrinsicPayloadValue | Uint8Array | string) {
-    super(registry, PayloadV1, value);
+    super(registry, {
+      method: 'Bytes',
+      ...registry.getSignedExtensionTypes(),
+      ...registry.getSignedExtensionExtra()
+    }, value);
   }
 
   /**

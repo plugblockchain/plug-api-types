@@ -3,6 +3,11 @@ jobs:
   build:
     docker:
       - image: circleci/node:10.13.0
+      - image: plugnet/plugblockchain:1.0.0-rc2
+        entrypoint: /usr/local/bin/plug
+        command:
+          - --dev
+          - --unsafe-ws-external
     steps:
       - checkout
       - run:
@@ -14,12 +19,5 @@ jobs:
       - setup_remote_docker
       - run:
           name: integration test
-          command: |
-            # Start Plug Node
-            docker run -d \
-                       -p 9944:9944 \
-                       --entrypoint /usr/local/bin/plug \
-                       plugnet/plugblockchain:1.0.0-rc2 \
-                       --dev \
-                       --unsafe-ws-external
+          command:
             npm install --only=dev && npm run test
