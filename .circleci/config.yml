@@ -13,7 +13,7 @@ jobs:
       - checkout
       - run:
           name: Install
-          command: npm install --only=dev
+          command: npm i -f
       - run:
           name: Lint
           command: npx eslint --fix-dry-run 'types/*'
