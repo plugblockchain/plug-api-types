@@ -22,4 +22,4 @@ jobs:
                        plugnet/plugblockchain:1.0.0-rc2 \
                        --dev \
                        --unsafe-ws-external
-            npm run test
+            npm install --only=dev && npm run test

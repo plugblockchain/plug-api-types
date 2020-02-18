@@ -7,11 +7,7 @@
     "allowSyntheticDefaultImports": true,
     "outDir": "./dist",
     "resolveJsonModule": true,
-    "declaration": true,
-    "baseUrl": ".",
-    "paths": {
-      "@plugnet/plug-api-types": ["types/*"]
-    }
+    "declaration": true
   },
   "include": [
     "./types/*"

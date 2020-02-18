@@ -6,6 +6,8 @@
   "typings": "dist/index.d.ts",
   "devDependencies": {
     "@polkadot/api": "^1.1.0",
+    "@polkadot/util": "^2.3.1",
+    "@polkadot/util-crypto": "^2.3.1",
     "@types/jest": "^25.1.2",
     "@typescript-eslint/eslint-plugin": "^2.9.0",
     "@typescript-eslint/parser": "^2.9.0",
