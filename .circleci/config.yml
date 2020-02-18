@@ -11,6 +11,15 @@ jobs:
       - run:
           name: lint
           command: npx eslint --fix-dry-run 'types/*'
+      - setup_remote_docker
       - run:
           name: integration test
-          command: npm run test
+          command: |
+            # Start Plug Node
+            docker run -d \
+                       -p 9944:9944 \
+                       --entrypoint /usr/local/bin/plug \
+                       plugnet/plugblockchain:1.0.0-rc2 \
+                       --dev \
+                       --unsafe-ws-external
+            npm run test
