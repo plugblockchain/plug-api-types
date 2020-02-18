@@ -3,6 +3,7 @@ jobs:
   build:
     docker:
       - image: circleci/node:10.13.0
+      # Run Plug node
       - image: plugnet/plugblockchain:1.0.0-rc2
         entrypoint: /usr/local/bin/plug
         command:
@@ -11,13 +12,13 @@ jobs:
     steps:
       - checkout
       - run:
-          name: install
+          name: Install
           command: npm install --only=dev
       - run:
-          name: lint
+          name: Lint
           command: npx eslint --fix-dry-run 'types/*'
       - setup_remote_docker
       - run:
-          name: integration test
+          name: Integration Tests
           command:
             npm install --only=dev && npm run test
