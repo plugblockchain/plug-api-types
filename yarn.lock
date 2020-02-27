@@ -2082,6 +2082,11 @@ extsprintf@^1.2.0:
   resolved "https://registry.yarnpkg.com/extsprintf/-/extsprintf-1.4.0.tgz#e2689f8f356fad62cca65a3a91c5df5f9551692f"
   integrity sha1-4mifjzVvrWLMplo6kcXfX5VRaS8=
 
+f@^1.4.0:
+  version "1.4.0"
+  resolved "https://registry.yarnpkg.com/f/-/f-1.4.0.tgz#4952b44d9ce451ce6ecf64f8cb503dfe24a8fd02"
+  integrity sha1-SVK0TZzkUc5uz2T4y1A9/iSo/QI=
+
 fast-deep-equal@^3.1.1:
   version "3.1.1"
   resolved "https://registry.yarnpkg.com/fast-deep-equal/-/fast-deep-equal-3.1.1.tgz#545145077c501491e33b15ec408c294376e94ae4"

@@ -16,7 +16,7 @@
 // This software may be modified and distributed under the terms
 // of the Apache-2.0 license. See the LICENSE file for details.
 
-import PlugRuntimeTypes from '@plugnet/plug-api-types';
+import PlugRuntimeTypes from '../types';
 import {ApiPromise, Keyring, WsProvider} from '@polkadot/api';
 import { TypeRegistry } from '@polkadot/types';
 import {cryptoWaitReady} from '@polkadot/util-crypto';

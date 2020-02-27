@@ -3,8 +3,9 @@
 // This software may be modified and distributed under the terms
 // of the Apache-2.0 license. See the LICENSE file for details.
 Object.defineProperty(exports, "__esModule", { value: true });
+const types_1 = require("@polkadot/types");
 const util_1 = require("@polkadot/util");
-const create_1 = require("@polkadot/types/codec/create");
+// import { ClassOf, createType } from '@polkadot/types/codec/create';
 const Struct_1 = require("@polkadot/types/codec/Struct");
 const ExtrinsicSignature_1 = require("./ExtrinsicSignature");
 exports.TRANSACTION_VERSION = 4;
@@ -27,13 +28,13 @@ class PlugExtrinsicV1 extends Struct_1.default {
         else if (value instanceof PlugExtrinsicV1) {
             return value;
         }
-        else if (value instanceof create_1.ClassOf(registry, 'Call')) {
+        else if (value instanceof types_1.ClassOf(registry, 'Call')) {
             return { method: value };
         }
         else if (util_1.isU8a(value)) {
             // here we decode manually since we need to pull through the version information
             const signature = new ExtrinsicSignature_1.default(registry, value, { isSigned });
-            const method = create_1.createType(registry, 'Call', value.subarray(signature.encodedLength));
+            const method = types_1.createType(registry, 'Call', value.subarray(signature.encodedLength));
             return {
                 method,
                 signature,

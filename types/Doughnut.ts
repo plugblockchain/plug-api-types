@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import {AnyU8a, Codec, Registry} from '@polkadot/types/types';
+import {AnyU8a, Registry} from '@polkadot/types/types';
 import Bytes from '@polkadot/types/primitive/Bytes';
 import Compact from '@polkadot/types/codec/Compact';
 import Raw from '@polkadot/types/codec/Raw';
@@ -20,7 +20,7 @@ import Raw from '@polkadot/types/codec/Raw';
 /**
  * An encoded, signed v0 Doughnut certificate
  **/
-export default class Doughnut extends Raw implements Codec {
+export default class Doughnut extends Raw {
     public get encodedLength (): number {
         return this.toU8a().length;
     }
