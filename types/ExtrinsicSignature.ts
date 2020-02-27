@@ -3,7 +3,7 @@
 // of the Apache-2.0 license. See the LICENSE file for details.
 
 import Compact from '@polkadot/types/codec/Compact';
-import { createType } from '@polkadot/types/codec/create';
+import {createType} from '@polkadot/types';
 import Option from '@polkadot/types/codec/Option';
 import Struct from '@polkadot/types/codec/Struct';
 import {
