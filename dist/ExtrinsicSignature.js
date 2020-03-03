@@ -5,7 +5,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const types_1 = require("@polkadot/types");
 const Struct_1 = require("@polkadot/types/codec/Struct");
-const constants_1 = require("@polkadot/types/primitive/Extrinsic/constants");
+const constants_1 = require("@polkadot/types/extrinsic/constants");
 const ExtrinsicPayload_1 = require("./ExtrinsicPayload");
 const util_1 = require("@polkadot/util");
 /**

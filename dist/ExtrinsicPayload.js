@@ -4,7 +4,7 @@
 // of the Apache-2.0 license. See the LICENSE file for details.
 Object.defineProperty(exports, "__esModule", { value: true });
 const Struct_1 = require("@polkadot/types/codec/Struct");
-const util_1 = require("@polkadot/types/primitive/Extrinsic/util");
+const util_1 = require("@polkadot/types/extrinsic/util");
 // The base fields in a Plug V1 extrinsic payload
 exports.BasePayloadV1 = {
     method: 'Bytes',
