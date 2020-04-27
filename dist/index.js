@@ -23,5 +23,7 @@ const PlugRuntimeTypes = {
     ExtrinsicV4: Extrinsic_1.default,
     // The staking reward currency type
     RewardBalance: 'Balance',
+    // The chain address type is the AccountId type
+    Address: 'AccountId',
 };
 exports.default = PlugRuntimeTypes;

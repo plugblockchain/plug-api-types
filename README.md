@@ -30,3 +30,10 @@ async function main() {
 
 }
 ```
+
+## Build
+To build the package for distribution run:
+```
+tsc
+```
+
