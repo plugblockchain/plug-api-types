@@ -3,8 +3,9 @@
 // This software may be modified and distributed under the terms
 // of the Apache-2.0 license. See the LICENSE file for details.
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.PayloadV1 = exports.SignedExtraV1 = exports.BasePayloadV1 = void 0;
 const Struct_1 = require("@polkadot/types/codec/Struct");
-const util_1 = require("@polkadot/types/primitive/Extrinsic/util");
+const util_1 = require("@polkadot/types/extrinsic/util");
 // The base fields in a Plug V1 extrinsic payload
 exports.BasePayloadV1 = {
     method: 'Bytes',

@@ -7,7 +7,7 @@ import Option from '@polkadot/types/codec/Option';
 import Struct from '@polkadot/types/codec/Struct';
 import { Balance, ExtrinsicEra, Hash, Index } from '@polkadot/types/interfaces';
 import Bytes from '@polkadot/types/primitive/Bytes';
-import { sign } from '@polkadot/types/primitive/Extrinsic/util';
+import { sign } from '@polkadot/types/extrinsic/util';
 import u32 from '@polkadot/types/primitive/U32';
 import { AnyNumber, AnyU8a, IExtrinsicEra, IKeyringPair, IMethod, Registry } from '@polkadot/types/types';
 

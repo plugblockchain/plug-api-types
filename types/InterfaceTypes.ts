@@ -13,12 +13,12 @@
 // limitations under the License.
 
 import Option from '@polkadot/types/codec/Option';
-import { InterfaceRegistry } from '@polkadot/types/interfaceRegistry';
+import { InterfaceTypes } from '@polkadot/types/types/registry';
 import Doughnut from './Doughnut';
 
 // Merge the [[InterfaceRegistry]] definition from `@polkadot/types/interfaceRegistry` with plug types
-declare module '@polkadot/types/interfaceRegistry' {
-    interface InterfaceRegistry {
+declare module '@polkadot/types/types/registry' {
+    interface InterfaceTypes {
         // Add types that only Plug knows about.
         // TS will merge them into the polkadot provided [[InterfaceRegistry]]
         Doughnut: Doughnut;
@@ -26,4 +26,4 @@ declare module '@polkadot/types/interfaceRegistry' {
     }
 }
 
-export type PlugInterfaceTypes = keyof InterfaceRegistry;
+export type PlugInterfaceTypes = keyof InterfaceTypes;

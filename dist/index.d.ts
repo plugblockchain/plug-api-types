@@ -4,5 +4,6 @@ declare const PlugRuntimeTypes: {
     Doughnut: typeof Doughnut;
     ExtrinsicV4: typeof PlugExtrinsicV1;
     RewardBalance: string;
+    Address: string;
 };
 export default PlugRuntimeTypes;
