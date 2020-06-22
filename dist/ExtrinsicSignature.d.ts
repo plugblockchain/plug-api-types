@@ -2,8 +2,8 @@ import Compact from '@polkadot/types/codec/Compact';
 import Option from '@polkadot/types/codec/Option';
 import Struct from '@polkadot/types/codec/Struct';
 import { Address, Balance, Call, EcdsaSignature, Ed25519Signature, ExtrinsicEra, Index, MultiSignature, Sr25519Signature } from '@polkadot/types/interfaces';
-import { ExtrinsicSignatureOptions } from '@polkadot/types/primitive/Extrinsic/types';
-import { AnyNumber, AnyU8a, IExtrinsicEra, IExtrinsicSignature, IKeyringPair, Registry, RuntimeVersionInterface } from '@polkadot/types/types';
+import { ExtrinsicSignatureOptions } from '@polkadot/types/extrinsic/types';
+import { AnyNumber, AnyU8a, IExtrinsicEra, IExtrinsicSignature, IKeyringPair, Registry, IRuntimeVersion } from '@polkadot/types/types';
 import Doughnut from './Doughnut';
 import PlugExtrinsicPayloadV1, { PlugExtrinsicPayloadValue } from './ExtrinsicPayload';
 export interface SignatureOptions {
@@ -12,7 +12,7 @@ export interface SignatureOptions {
     doughnut?: Option<Doughnut>;
     genesisHash: AnyU8a;
     nonce: AnyNumber;
-    runtimeVersion: RuntimeVersionInterface;
+    runtimeVersion: IRuntimeVersion;
     tip?: AnyNumber;
 }
 /**

@@ -3,8 +3,9 @@
 // This software may be modified and distributed under the terms
 // of the Apache-2.0 license. See the LICENSE file for details.
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.TRANSACTION_VERSION = void 0;
 const util_1 = require("@polkadot/util");
-const create_1 = require("@polkadot/types/codec/create");
+const create_1 = require("@polkadot/types/create");
 const Struct_1 = require("@polkadot/types/codec/Struct");
 const ExtrinsicSignature_1 = require("./ExtrinsicSignature");
 exports.TRANSACTION_VERSION = 4;

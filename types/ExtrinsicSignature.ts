@@ -3,7 +3,7 @@
 // of the Apache-2.0 license. See the LICENSE file for details.
 
 import Compact from '@polkadot/types/codec/Compact';
-import { createType } from '@polkadot/types/codec/create';
+import { createType } from '@polkadot/types/create';
 import Option from '@polkadot/types/codec/Option';
 import Struct from '@polkadot/types/codec/Struct';
 import {
@@ -17,8 +17,8 @@ import {
   MultiSignature,
   Sr25519Signature,
 } from '@polkadot/types/interfaces';
-import { EMPTY_U8A, IMMORTAL_ERA } from '@polkadot/types/primitive/Extrinsic/constants';
-import { ExtrinsicSignatureOptions } from '@polkadot/types/primitive/Extrinsic/types';
+import { EMPTY_U8A, IMMORTAL_ERA } from '@polkadot/types/extrinsic/constants';
+import { ExtrinsicSignatureOptions } from '@polkadot/types/extrinsic/types';
 
 import {
   AnyNumber,
@@ -27,7 +27,7 @@ import {
   IExtrinsicSignature,
   IKeyringPair,
   Registry,
-  RuntimeVersionInterface,
+  IRuntimeVersion,
 } from '@polkadot/types/types';
 
 import Doughnut from './Doughnut';
@@ -40,7 +40,7 @@ export interface SignatureOptions {
   doughnut?: Option<Doughnut>;
   genesisHash: AnyU8a;
   nonce: AnyNumber;
-  runtimeVersion: RuntimeVersionInterface;
+  runtimeVersion: IRuntimeVersion;
   tip?: AnyNumber;
 }
 

@@ -4,7 +4,7 @@ It has had its payload and signature type changed to use Plug versions.
 **/
 import { Address, Call } from '@polkadot/types/interfaces/runtime';
 import { ExtrinsicPayloadValue, IExtrinsicImpl, IKeyringPair, Registry, SignatureOptions } from '@polkadot/types/types';
-import { ExtrinsicOptions } from '@polkadot/types/primitive/Extrinsic/types';
+import { ExtrinsicOptions } from '@polkadot/types/extrinsic/types';
 import Struct from '@polkadot/types/codec/Struct';
 import PlugExtrinsicSignatureV1 from './ExtrinsicSignature';
 export declare const TRANSACTION_VERSION = 4;
