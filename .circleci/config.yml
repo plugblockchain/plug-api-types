@@ -4,7 +4,7 @@ jobs:
     docker:
       - image: circleci/node:10.13.0
       # Run Plug node
-      - image: plugnet/plugblockchain:1.0.0-rc3.1
+      - image: plugnet/plugblockchain:1.0.0-rc4-c74f379d
         entrypoint: /usr/local/bin/plug
         command:
           - --dev
