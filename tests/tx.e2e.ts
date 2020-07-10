@@ -53,8 +53,8 @@ describe('e2e transactions', () => {
       const nonce = await api.query.system.accountNonce(alice.address);
       const tx = api.tx.balances.transfer(bob.address, 123).sign(alice, {nonce});
       await tx.send(async ({events, status}) => {
-        // event[0] is a treasury deposit
-        if (status.isFinalized) {
+        if (status.isInBlock) {
+          // event[0] is a treasury deposit
           expect(events[1].event.method).toEqual('Transfer');
           expect(events[1].event.section).toEqual('balances');
           done();
@@ -65,7 +65,7 @@ describe('e2e transactions', () => {
 
     it('does a balance transfer with keypair via signAndSend', async done => {
       await api.tx.balances.transfer(bob.address, 123).signAndSend(alice, async ({events, status}) => {
-          if (status.isFinalized) {
+          if (status.isInBlock) {
             // event[0] is a treasury deposit
             expect(events[1].event.method).toEqual('Transfer');
             expect(events[1].event.section).toEqual('balances');
