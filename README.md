@@ -10,7 +10,7 @@ Add as dependency
 // package.json
 { 
   "dependencies": {
-    "@plugnet/plug-api-types": "git+https://github.com/plugblockchain/plug-api-types.git#1.0.0-rc2"
+    "@plugnet/plug-api-types": "git+https://github.com/plugblockchain/plug-api-types.git#1.0.0-rc4"
   }
 }
 ```
