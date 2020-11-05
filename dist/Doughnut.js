@@ -14,7 +14,6 @@
 // limitations under the License.
 Object.defineProperty(exports, "__esModule", { value: true });
 const Bytes_1 = require("@polkadot/types/primitive/Bytes");
-const Compact_1 = require("@polkadot/types/codec/Compact");
 const Raw_1 = require("@polkadot/types/codec/Raw");
 /**
  * An encoded, signed v0 Doughnut certificate
@@ -34,10 +33,6 @@ class Doughnut extends Raw_1.default {
         else {
             super(registry, value);
         }
-    }
-    toU8a(isBare) {
-        // Encode the doughnut with length prefix to support SCALE codec
-        return isBare ? this : Compact_1.default.addLengthPrefix(this);
     }
 }
 exports.default = Doughnut;

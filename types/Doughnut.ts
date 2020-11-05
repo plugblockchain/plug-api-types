@@ -38,8 +38,12 @@ export default class Doughnut extends Raw implements Codec {
         }
     }
 
-  toU8a(isBare?: boolean): Uint8Array {
-    // Encode the doughnut with length prefix to support SCALE codec
-    return isBare ? (this as Uint8Array) : Compact.addLengthPrefix(this);
-  }
+// Removed unneeded length encoding behaviour in favour of inherited behavour.
+// Note that this change may be relying on the doughnut being wrapped in an Option<> which
+// will encode the length of it's payload (a doughnut in this case)
+//
+//   toU8a(isBare?: boolean): Uint8Array {
+//     // Encode the doughnut with length prefix to support SCALE codec
+//     return isBare ? (this as Uint8Array) : Compact.addLengthPrefix(this);
+//   }
 }

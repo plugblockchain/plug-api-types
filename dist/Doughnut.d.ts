@@ -6,5 +6,4 @@ import Raw from '@polkadot/types/codec/Raw';
 export default class Doughnut extends Raw implements Codec {
     get encodedLength(): number;
     constructor(registry: Registry, value?: AnyU8a);
-    toU8a(isBare?: boolean): Uint8Array;
 }
