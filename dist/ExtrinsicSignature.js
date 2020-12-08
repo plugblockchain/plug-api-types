@@ -108,7 +108,7 @@ class PlugExtrinsicSignatureV1 extends Struct_1.default {
     createPayload(method, { blockHash, doughnut, era, genesisHash, nonce, runtimeVersion: { specVersion }, tip }) {
         return new ExtrinsicPayload_1.default(this.registry, {
             blockHash,
-            doughnut: doughnut || create_1.createType(this.registry, 'Option<Doughnut>'),
+            doughnut,
             era: era || constants_1.IMMORTAL_ERA,
             genesisHash,
             method: method.toHex(),
