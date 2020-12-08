@@ -162,7 +162,7 @@ export default class PlugExtrinsicSignatureV1 extends Struct implements IExtrins
   public createPayload (method: Call, { blockHash, doughnut, era, genesisHash, nonce, runtimeVersion: { specVersion }, tip }: SignatureOptions): PlugExtrinsicPayloadV1 {
     return new PlugExtrinsicPayloadV1(this.registry, {
       blockHash,
-      doughnut: doughnut,
+      doughnut,
       era: era || IMMORTAL_ERA,
       genesisHash,
       method: method.toHex(),
